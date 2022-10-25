@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
 
-namespace FabricaIdeas.Models
+namespace FabricaIdeas.Prueba
 {
     public partial class DbFabriIdeasContext : DbContext
     {
@@ -27,7 +27,7 @@ namespace FabricaIdeas.Models
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            
+           
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -35,11 +35,9 @@ namespace FabricaIdeas.Models
             modelBuilder.Entity<Area>(entity =>
             {
                 entity.HasKey(e => e.IdArea)
-                    .HasName("PK__Area__2FC141AAB97B916B");
+                    .HasName("PK__Area__2FC141AABC272A38");
 
                 entity.ToTable("Area");
-
-                entity.Property(e => e.IdArea).ValueGeneratedNever();
 
                 entity.Property(e => e.Adescri)
                     .HasMaxLength(500)
@@ -57,9 +55,7 @@ namespace FabricaIdeas.Models
             modelBuilder.Entity<Categorium>(entity =>
             {
                 entity.HasKey(e => e.IdCate)
-                    .HasName("PK__Categori__3B7B6402AF9F9E92");
-
-                entity.Property(e => e.IdCate).ValueGeneratedNever();
+                    .HasName("PK__Categori__3B7B6402A542653C");
 
                 entity.Property(e => e.Cdescrip)
                     .HasMaxLength(500)
@@ -74,7 +70,7 @@ namespace FabricaIdeas.Models
             modelBuilder.Entity<Estatus>(entity =>
             {
                 entity.HasKey(e => e.IdEstatus)
-                    .HasName("PK__Estatus__B32BA1C77C0C6526");
+                    .HasName("PK__Estatus__B32BA1C78249D543");
 
                 entity.ToTable("Estatus");
 
@@ -93,11 +89,9 @@ namespace FabricaIdeas.Models
             modelBuilder.Entity<Idea>(entity =>
             {
                 entity.HasKey(e => e.IdIdea)
-                    .HasName("PK__Idea__6DE8190317C73A32");
+                    .HasName("PK__Idea__6DE8190314E8F227");
 
                 entity.ToTable("Idea");
-
-                entity.Property(e => e.IdIdea).ValueGeneratedNever();
 
                 entity.Property(e => e.AidArea).HasColumnName("AIdArea");
 
@@ -163,7 +157,7 @@ namespace FabricaIdeas.Models
             modelBuilder.Entity<Objetivo>(entity =>
             {
                 entity.HasKey(e => e.IdObje)
-                    .HasName("PK__Objetivo__8034FF389B3AC8F4");
+                    .HasName("PK__Objetivo__8034FF386C15B99D");
 
                 entity.Property(e => e.IdObje).ValueGeneratedNever();
 
@@ -187,7 +181,7 @@ namespace FabricaIdeas.Models
             modelBuilder.Entity<Premiacion>(entity =>
             {
                 entity.HasKey(e => e.IdPremi)
-                    .HasName("PK__Premiaci__CCE2F3BE5F37E744");
+                    .HasName("PK__Premiaci__CCE2F3BEC3A354D7");
 
                 entity.ToTable("Premiacion");
 
@@ -211,7 +205,7 @@ namespace FabricaIdeas.Models
             modelBuilder.Entity<Respon>(entity =>
             {
                 entity.HasKey(e => e.IdRespon)
-                    .HasName("PK__Respons__D91D3EC7EE9C3809");
+                    .HasName("PK__Respons__D91D3EC70346495B");
 
                 entity.Property(e => e.IdRespon).ValueGeneratedNever();
 
@@ -233,7 +227,7 @@ namespace FabricaIdeas.Models
             modelBuilder.Entity<Zona>(entity =>
             {
                 entity.HasKey(e => e.IdZona)
-                    .HasName("PK__Zona__F631C12DAD2787C8");
+                    .HasName("PK__Zona__F631C12D1A71465D");
 
                 entity.ToTable("Zona");
 
