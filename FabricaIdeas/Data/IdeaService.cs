@@ -13,6 +13,7 @@ namespace FabricaIdeas.Data
         public List<Zona> zonas { get; set; }
         public List<Estatus> estatus { get; set; }
         public List<Categorium> categorias { get; set; }
+        public List<Premiacion> premio { get; set; }
 
         private readonly DbFabriIdeasContext _context;
         private readonly NavigationManager _navigationManager;
@@ -83,7 +84,28 @@ namespace FabricaIdeas.Data
         {
             areas = await _context.Areas
                             .Where(a => a.Aesta == true)
+                            .Include(b=> b.Zonas)
                             .ToListAsync();
+        }
+
+        public async Task GetEstatus()
+        {
+            estatus = await _context.Estatuses
+                           .Where(a => a.Eesta == true)
+                           .ToListAsync();
+        }
+
+        public async Task GetPremiacion()
+        {
+            premio = await _context.Premiacions
+                .Include(b => b.CidCatNavigation)
+                           .ToListAsync();
+        }
+
+        public async Task GetCategoria()
+        {
+            categorias = await _context.Categoria
+                           .ToListAsync();
         }
     }
 }

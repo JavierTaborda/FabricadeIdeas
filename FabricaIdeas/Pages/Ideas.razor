@@ -1,0 +1,99 @@
+﻿@page "/ideas"
+
+@inject IIdeasService IdeaService
+<p></p>
+<p></p>
+<h1>Ideas</h1>
+<p></p>
+@if (add == true)
+{
+
+    <BSForm Model="ideaform" Class="caja" IsRow="true" Gutters="Gutters.Medium" OnSubmit="Insert" OnReset="Reset">
+        <DataAnnotationsValidator />
+    <BSCol ColumnMedium="12">
+        @_message
+        <BSValidationSummary />
+    </BSCol>
+      <BSRow>
+              
+      <BSCol Column="3" >
+                <BSLabel>Area</BSLabel>
+                <BSInput InputType="InputType.Select" @bind-Value="ideaform.AidArea">
+                      <option value="">Seleccione...</option>
+                      @foreach (var d in IdeaService.areas)
+                    {
+                  
+                    <option value="@d.IdArea">@d.Anombre</option>
+                    }
+                    
+
+                </BSInput>
+                    <BSFeedback For="@(() => ideaform.Inombre)" ValidMessage="Correcto." />
+            </BSCol> 
+                 <BSCol Column="3" >
+                    <BSLabel>Zona</BSLabel>
+                    <BSInput InputType="InputType.Select" @bind-Value="ideaform.Inombre">
+                       <option value="">Seleccione...</option>
+                      @foreach (var d in IdeaService.areas)
+                    {
+                        @foreach (var e in d.Zonas)
+                        {
+                           
+                            if (e.AidArea == ideaform.AidArea)
+                            {
+                                
+                                <option value="@e.IdZona">@e.Znombre</option>
+                            }
+                        }
+
+                    }
+
+
+                    </BSInput>
+                        <BSFeedback For="@(() => ideaform.Inombre)" ValidMessage="Correcto." />
+                </BSCol> 
+          </BSRow> 
+              <p></p>
+               <p></p>
+
+            <BSCol Column="12">
+           <BSButton   Color="BSColor.Success"  Size="Size.ExtraSmall" IsSubmit>  Guardar <span class="oi oi-check"></span></BSButton>
+           <BSButton   Color="BSColor.Primary"  Size="Size.ExtraSmall" IsReset>  Nuevo </BSButton>
+            </BSCol>
+       </BSForm>
+       }
+       else{
+                    <BSButton   Color="BSColor.Light"  Size="Size.Large" IsOutlined OnClick="Add">  Registra tu idea </BSButton>
+       }
+
+
+@code {
+    Idea ideaform = new Idea();
+    private string _message = "";
+    private DateTime fechahoy, fechatrabajo=DateTime.Today;
+    private string fechahoy2;
+    private bool add=false;
+
+
+    protected async Task Insert(EditContext e)
+    { }
+    protected async Task Add()
+    {
+        await IdeaService.GetArea();
+        await IdeaService.GetEstatus();
+        await IdeaService.GetPremiacion();
+        add = true;
+    }
+
+    protected async Task Zona()
+    {
+        await IdeaService.GetZona();
+        add = true;
+    }
+
+    protected async Task Reset()
+    {
+        ideaform = new Idea();
+        fechatrabajo = DateTime.Today;
+    }
+}

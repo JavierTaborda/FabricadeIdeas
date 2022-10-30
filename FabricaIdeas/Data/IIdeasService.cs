@@ -29,5 +29,12 @@ namespace FabricaIdeas.Data
         Task GetZona();
         Task GetArea();
 
+        //Estatus de idea
+        Task GetEstatus();
+
+        //Premiaciones y categorias
+        Task GetPremiacion();
+        Task GetCategoria();
+
     }
 }

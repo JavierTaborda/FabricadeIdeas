@@ -27,7 +27,7 @@ namespace FabricaIdeas.Models
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            
+          
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -38,8 +38,6 @@ namespace FabricaIdeas.Models
                     .HasName("PK__Area__2FC141AAB97B916B");
 
                 entity.ToTable("Area");
-
-                entity.Property(e => e.IdArea).ValueGeneratedNever();
 
                 entity.Property(e => e.Adescri)
                     .HasMaxLength(500)
@@ -59,8 +57,6 @@ namespace FabricaIdeas.Models
                 entity.HasKey(e => e.IdCate)
                     .HasName("PK__Categori__3B7B6402AF9F9E92");
 
-                entity.Property(e => e.IdCate).ValueGeneratedNever();
-
                 entity.Property(e => e.Cdescrip)
                     .HasMaxLength(500)
                     .IsUnicode(false)
@@ -78,8 +74,6 @@ namespace FabricaIdeas.Models
 
                 entity.ToTable("Estatus");
 
-                entity.Property(e => e.IdEstatus).ValueGeneratedNever();
-
                 entity.Property(e => e.Edesc)
                     .HasMaxLength(500)
                     .IsUnicode(false)
@@ -96,8 +90,6 @@ namespace FabricaIdeas.Models
                     .HasName("PK__Idea__6DE8190317C73A32");
 
                 entity.ToTable("Idea");
-
-                entity.Property(e => e.IdIdea).ValueGeneratedNever();
 
                 entity.Property(e => e.AidArea).HasColumnName("AIdArea");
 
@@ -137,7 +129,7 @@ namespace FabricaIdeas.Models
 
                 entity.Property(e => e.PidPremi).HasColumnName("PIdPremi");
 
-                entity.Property(e => e.RidRespon).HasColumnName("RIdRespon");
+                entity.Property(e => e.ZidZona).HasColumnName("ZIdZona");
 
                 entity.HasOne(d => d.AidAreaNavigation)
                     .WithMany(p => p.Ideas)
@@ -154,18 +146,17 @@ namespace FabricaIdeas.Models
                     .HasForeignKey(d => d.PidPremi)
                     .HasConstraintName("FK_Idea_Premiacion");
 
-                entity.HasOne(d => d.RidResponNavigation)
+                entity.HasOne(d => d.ZidZonaNavigation)
                     .WithMany(p => p.Ideas)
-                    .HasForeignKey(d => d.RidRespon)
-                    .HasConstraintName("FK_Idea_Respons");
+                    .HasForeignKey(d => d.ZidZona)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_Idea_Zona");
             });
 
             modelBuilder.Entity<Objetivo>(entity =>
             {
                 entity.HasKey(e => e.IdObje)
                     .HasName("PK__Objetivo__8034FF389B3AC8F4");
-
-                entity.Property(e => e.IdObje).ValueGeneratedNever();
 
                 entity.Property(e => e.IidIdea).HasColumnName("IIdIdea");
 
@@ -191,8 +182,6 @@ namespace FabricaIdeas.Models
 
                 entity.ToTable("Premiacion");
 
-                entity.Property(e => e.IdPremi).ValueGeneratedNever();
-
                 entity.Property(e => e.CidCat).HasColumnName("CIdCat");
 
                 entity.Property(e => e.Pmonto).HasColumnName("PMonto");
@@ -213,7 +202,7 @@ namespace FabricaIdeas.Models
                 entity.HasKey(e => e.IdRespon)
                     .HasName("PK__Respons__D91D3EC7EE9C3809");
 
-                entity.Property(e => e.IdRespon).ValueGeneratedNever();
+                entity.Property(e => e.IidIdea).HasColumnName("IIdIdea");
 
                 entity.Property(e => e.Resta).HasColumnName("REsta");
 
@@ -228,6 +217,11 @@ namespace FabricaIdeas.Models
                     .HasColumnName("RNombre");
 
                 entity.Property(e => e.Rnum).HasColumnName("RNum");
+
+                entity.HasOne(d => d.IidIdeaNavigation)
+                    .WithMany(p => p.Respons)
+                    .HasForeignKey(d => d.IidIdea)
+                    .HasConstraintName("FK_Respons_Idea");
             });
 
             modelBuilder.Entity<Zona>(entity =>
@@ -236,8 +230,6 @@ namespace FabricaIdeas.Models
                     .HasName("PK__Zona__F631C12DAD2787C8");
 
                 entity.ToTable("Zona");
-
-                entity.Property(e => e.IdZona).ValueGeneratedNever();
 
                 entity.Property(e => e.AidArea).HasColumnName("AIdArea");
 

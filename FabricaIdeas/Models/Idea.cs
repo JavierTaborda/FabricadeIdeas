@@ -8,13 +8,14 @@ namespace FabricaIdeas.Models
         public Idea()
         {
             Objetivos = new HashSet<Objetivo>();
+            Respons = new HashSet<Respon>();
         }
 
         public int IdIdea { get; set; }
         public int? AidArea { get; set; }
+        public int ZidZona { get; set; }
         public int? EidEsta { get; set; }
         public int? PidPremi { get; set; }
-        public int? RidRespon { get; set; }
         public string? Inombre { get; set; }
         public string? Iecarga { get; set; }
         public string? Idesc { get; set; }
@@ -26,7 +27,8 @@ namespace FabricaIdeas.Models
         public virtual Area? AidAreaNavigation { get; set; }
         public virtual Estatus? EidEstaNavigation { get; set; }
         public virtual Premiacion? PidPremiNavigation { get; set; }
-        public virtual Respon? RidResponNavigation { get; set; }
+        public virtual Zona ZidZonaNavigation { get; set; } = null!;
         public virtual ICollection<Objetivo> Objetivos { get; set; }
+        public virtual ICollection<Respon> Respons { get; set; }
     }
 }
