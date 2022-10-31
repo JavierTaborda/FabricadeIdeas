@@ -5,9 +5,11 @@
 <p></p>
 <h1>Ideas</h1>
 <p></p>
-@if (add == true)
-{
 
+
+@if (add == true & agregando == false & ideainsertada.IdIdea == 0)
+{
+    
     <BSForm Model="ideaform" Class="caja" IsRow="true" Gutters="Gutters.Medium" OnSubmit="Insert" OnReset="Reset">
         <DataAnnotationsValidator />
     <BSCol ColumnMedium="12">
@@ -32,7 +34,7 @@
             </BSCol> 
                  <BSCol Column="3" >
                     <BSLabel>Zona</BSLabel>
-                    <BSInput InputType="InputType.Select" @bind-Value="ideaform.Inombre">
+                        <BSInput InputType="InputType.Select" @bind-Value="ideaform.ZidZona">
                        <option value="">Seleccione...</option>
                       @foreach (var d in IdeaService.areas)
                     {
@@ -50,10 +52,30 @@
 
 
                     </BSInput>
-                        <BSFeedback For="@(() => ideaform.Inombre)" ValidMessage="Correcto." />
+                        <BSFeedback For="@(() => ideaform.ZidZona)" ValidMessage="Correcto." />
                 </BSCol> 
+
+                        <BSCol Column="4">
+                    <BSLabel>Nombre de la Idea</BSLabel>
+                        <BSInput InputType="InputType.Text" @bind-Value="ideaform.Inombre"  />
+                                 <BSFeedback For="@(() => ideaform.Inombre)" ValidMessage="Correcto." />
+                    </BSCol>
           </BSRow> 
               <p></p>
+               <p></p>
+               <BSRow>
+                        <BSCol Column="6">
+                        <BSLabel>Descripcion del problema.</BSLabel>
+                            <BSInput InputType="InputType.TextArea" @bind-Value="ideaform.Idesc"  />
+                                 <BSFeedback For="@(() => ideaform.Idesc)" ValidMessage="Correcto." />
+                        </BSCol>
+                            <BSCol Column="6">
+                            <BSLabel>Solucion al problema.</BSLabel>
+                                    <BSInput InputType="InputType.TextArea" @bind-Value="ideaform.Isolu"  />
+                                     <BSFeedback For="@(() => ideaform.Isolu)" ValidMessage="Correcto." />
+                            </BSCol>
+               </BSRow>
+               <p></p>
                <p></p>
 
             <BSCol Column="12">
@@ -62,27 +84,141 @@
             </BSCol>
        </BSForm>
        }
-       else{
-                    <BSButton   Color="BSColor.Light"  Size="Size.Large" IsOutlined OnClick="Add">  Registra tu idea </BSButton>
+        else if (add == true & agregando == true & ideainsertada.IdIdea == 0 | add == false & agregando == true & ideainsertada.IdIdea == 0)
+       {
+              <BSRow Justify="Justify.Center">
+                <BSCol Column="3">
+                   <BSSpinner SpinnerType="SpinnerType.Grow" Color="BSColor.Light"/>
+                   <BSSpinner SpinnerType="SpinnerType.Grow" Color="BSColor.Light"/>
+                   <BSSpinner SpinnerType="SpinnerType.Grow" Color="BSColor.Light"/>
+                </BSCol>  
+             </BSRow>
+               
+       }
+
+else if (ideainsertada.IdIdea !=0)
+{
+        <BSTable IsResponsive="true" IsStriped="true">
+        <BSTHead>
+            <BSTR>
+                <BSTD>Nombre</BSTD>
+                <BSTD>Descripcion del Problema</BSTD>
+                <BSTD>Descripcion de la Solucion</BSTD>
+            </BSTR>
+        </BSTHead>
+        <BSTBody>
+            <BSTR>   
+                    <BSTD>@ideainsertada.Inombre</BSTD>
+                    <BSTD>@ideainsertada.Idesc </BSTD>
+                    <BSTD>@ideainsertada.Isolu </BSTD>
+            </BSTR>
+        </BSTBody>
+
+    </BSTable>
+
+        <p></p>
+        <p></p>
+        <BSAccordion>
+            <BSAccordionItem>
+                <Header>Accordion Item #1</Header>
+                <Content>
+        
+
+                            
+                    <BSForm Model="objeform" Class="caja" IsRow="true" Gutters="Gutters.Medium" OnSubmit="Insert" OnReset="Reset">
+                <DataAnnotationsValidator />
+                <BSCol ColumnMedium="12">
+                 @_message
+                <BSValidationSummary />
+                    </BSCol>
+                        <BSRow>
+  
+                        <BSCol Column="4">
+                    <BSLabel>Nombre de la Idea</BSLabel>
+                            <BSInput InputType="InputType.Text" @bind-Value="objeform.Odesc"  />
+                                     <BSFeedback For="@(() => objeform.Odesc)" ValidMessage="Correcto." />
+                        </BSCol>
+                    </BSRow> 
+                   <BSCol Column="12">
+               <BSButton   Color="BSColor.Success"  Size="Size.ExtraSmall" IsSubmit>  Guardar <span class="oi oi-check"></span></BSButton>
+               <BSButton   Color="BSColor.Primary"  Size="Size.ExtraSmall" IsReset>  Nuevo </BSButton>
+                </BSCol>
+           </BSForm>
+
+                </Content>
+            </BSAccordionItem>
+            <BSAccordionItem>
+                <Header>Accordion Item #2</Header>
+                <Content>
+                 <strong>This is the second item's accordion body.</strong> It is hidden by default. Placeholder content for this accordion.
+                </Content>
+            </BSAccordionItem>
+            <BSAccordionItem>
+                <Header>Accordion Item #3</Header>
+                <Content>
+                <strong>This is the third item's accordion body.</strong> It is hidden by default. Placeholder content for this accordion.
+            </Content>
+             </BSAccordionItem>
+        </BSAccordion>
+
+}
+        else
+            {
+
+            <BSRow Justify="Justify.Center">
+            <BSCol  ColumnSmall="3">
+                    <BSButton   Color="BSColor.Light"  Size="Size.Large" IsOutlined OnClick="Add"> Click para registrar tu idea </BSButton>
+            </BSCol>
+           
+        </BSRow>
+          
        }
 
 
 @code {
     Idea ideaform = new Idea();
+    Objetivo objeform = new Objetivo();
+    Idea ideainsertada = new Idea();//recibe el id de la idea insertada para cargar lois responsables y obteivos
     private string _message = "";
     private DateTime fechahoy, fechatrabajo=DateTime.Today;
     private string fechahoy2;
     private bool add=false;
+    private bool agregando=false;//mostrar spinner
+    private bool objetivos=false;//mostrar objetivos
 
 
     protected async Task Insert(EditContext e)
-    { }
+    {
+        //Insertar Estatus
+        agregando = true;
+        foreach (var esta in IdeaService.estatus)
+        {
+            if(esta.Enivel==0)
+            {
+                ideaform.EidEsta = esta.IdEstatus;
+            }
+        }
+        foreach (var premi in IdeaService.premio)
+        {
+            if (premi.Pobser == "Idea Registrada")
+            {
+                ideaform.PidPremi = premi.IdPremi;
+            }
+        }
+        ideaform.IfecCra = DateTime.Now;
+        ideaform.Iacti = true;
+        ideainsertada = await IdeaService.InsertIdea(ideaform);
+        agregando = false;
+
+    }
     protected async Task Add()
     {
+        agregando = true;
         await IdeaService.GetArea();
         await IdeaService.GetEstatus();
         await IdeaService.GetPremiacion();
         add = true;
+        agregando = false;
     }
 
     protected async Task Zona()

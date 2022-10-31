@@ -22,6 +22,8 @@ namespace FabricaIdeas.Models
         public string? Isolu { get; set; }
         public string? Ifacti { get; set; }
         public string? Iesta { get; set; }
+        public DateTime? IfecCra { get; set; }
+        public DateTime? IfecEst { get; set; }
         public bool? Iacti { get; set; }
 
         public virtual Area? AidAreaNavigation { get; set; }

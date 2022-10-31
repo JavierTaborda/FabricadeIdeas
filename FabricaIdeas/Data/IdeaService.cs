@@ -15,6 +15,7 @@ namespace FabricaIdeas.Data
         public List<Categorium> categorias { get; set; }
         public List<Premiacion> premio { get; set; }
 
+
         private readonly DbFabriIdeasContext _context;
         private readonly NavigationManager _navigationManager;
         public IdeaService(DbFabriIdeasContext _dbFabriIdeasContext, NavigationManager navigationManager)
@@ -28,10 +29,11 @@ namespace FabricaIdeas.Data
             ideas = await _context.Ideas.ToListAsync();
         }
 
-        public async Task InsertIdea(Idea idea)
+        public async Task<Idea> InsertIdea(Idea idea)
         {
             _context.Ideas.Add(idea);
             await _context.SaveChangesAsync();
+            return idea;
         }
         public async Task<Idea> GetIdeaData(int id)
         {

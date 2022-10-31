@@ -11,11 +11,11 @@ namespace FabricaIdeas.Data
         List<Zona> zonas { get; set; }
         List<Estatus> estatus { get; set; }
         List<Categorium> categorias { get; set; }
-       
+         List<Premiacion> premio { get; set; }
         //Ideassssssssss
         Task GetIdeas();
         Task<Idea> GetIdeaData(int id);
-        Task InsertIdea(Idea idea);
+        Task<Idea> InsertIdea(Idea idea);
         Task<Idea>UpdateIdea(int id);
         Task InsertObjetivo( Objetivo objetivos);
         Task InsertResponsables(Respon ididea);

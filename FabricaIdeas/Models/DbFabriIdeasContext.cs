@@ -27,7 +27,7 @@ namespace FabricaIdeas.Models
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-          
+           
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -116,6 +116,14 @@ namespace FabricaIdeas.Models
                     .HasMaxLength(1000)
                     .IsUnicode(false)
                     .HasColumnName("IFacti");
+
+                entity.Property(e => e.IfecCra)
+                    .HasColumnType("date")
+                    .HasColumnName("IFecCre");
+
+                entity.Property(e => e.IfecEst)
+                    .HasColumnType("date")
+                    .HasColumnName("IFecEst");
 
                 entity.Property(e => e.Inombre)
                     .HasMaxLength(1000)
