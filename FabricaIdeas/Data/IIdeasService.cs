@@ -16,7 +16,7 @@ namespace FabricaIdeas.Data
         Task GetIdeas();
         Task<Idea> GetIdeaData(int id);
         Task<Idea> InsertIdea(Idea idea);
-        Task<Idea>UpdateIdea(int id);
+        Task<Idea>UpdateIdea(int id);      
         Task InsertObjetivo( Objetivo objetivos);
         Task InsertResponsables(Respon ididea);
 
