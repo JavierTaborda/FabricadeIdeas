@@ -5,7 +5,7 @@ html, body {
     background-image: linear-gradient(to right, #00A23B, #3CAD49, #79B943);
 }
 .degradado {
-    background-image: linear-gradient(to right, #00A23B, #3CAD49, #79B943);
+    background-image: linear-gradient(to right, #00A23B, #3CAD49, #79B943) !important;
 }
 .colorletra{
     color: black !important;
@@ -16,20 +16,22 @@ h1 {
 }
 /*despues de la sidebar */
 .fondomedio {
-    background-image: linear-gradient(90deg, rgb(250, 250, 250, 0.35) 0%, rgba( 200, 200, 200, 0.45) 70%);
+    background-image: linear-gradient(90deg, rgb(250, 250, 250, 0.30) 0%, rgba( 200, 200, 200, 0.25) 70%);
     backdrop-filter: blur( 5px );
     -webkit-backdrop-filter: blur( 8.5 px );
-    border-top-right-radius: 20px;
-    border-bottom-right-radius: 20px;
+    border-radius: 20px;
+    margin-left: 5px;
+    /*  border-top-right-radius: 20px;
+    border-bottom-right-radius: 20px;*/
     box-shadow: 0px 2px 5px rgba(35,35,35,0.3);
 }
 /*contiene el fondomedio y la sidebar*/
 .fondo {
-    /*background: rgba( 255, 255, 255, 0.15 );*/
-    backdrop-filter: blur( 5px );
-    -webkit-backdrop-filter: blur( 5.5 px );
-    padding-top: 3%;
-    padding-bottom: 5%;
+    /*background: rgba( 255, 255, 255, 0.01 );*/
+  /*  backdrop-filter: blur( 5px );
+    -webkit-backdrop-filter: blur( 5.5 px );*/
+    padding-top: 1%;
+    padding-bottom: 1%;
     padding-left: 1%;
     padding-right: 1%;
     /*border-top-left-radius: 10%;
@@ -58,9 +60,11 @@ h1 {
     backdrop-filter: blur( 10px );
     -webkit-backdrop-filter: blur( 5.5 px );
     border: 1px solid rgba( 255, 255, 255, 0.18 );
-    border-top-left-radius: 20px;
+    border-radius:20px;
+    
+   /* border-top-left-radius: 20px;
     border-bottom-left-radius: 20px;
-    /*    border-top-right-radius: 30px;
+      border-top-right-radius: 30px;
     border-bottom-right-radius: 50px;*/
 }
 /*Card*/
