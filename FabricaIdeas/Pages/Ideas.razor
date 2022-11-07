@@ -96,7 +96,8 @@
 
 else if (ideainsertada.IdIdea !=0)
 {
-        <BSTable IsResponsive="true" IsStriped="true">
+        <BSContainer Class="caja">
+        <BSTable IsResponsive="true" IsStriped="true" >
         <BSTHead>
             <BSTR>
                 <BSTD>Nombre</BSTD>
@@ -112,52 +113,73 @@ else if (ideainsertada.IdIdea !=0)
             </BSTR>
         </BSTBody>
 
-    </BSTable>
-
+    </BSTable>     
+    </BSContainer>
         <p></p>
-        <p></p>
-        <BSAccordion>
-            <BSAccordionItem>
-                <Header>Accordion Item #1</Header>
-                <Content>
-        
 
-                            
-                    <BSForm Model="objeform" Class="caja" IsRow="true" Gutters="Gutters.Medium" OnSubmit="Insert" OnReset="Reset">
+        @*si se agregan objetivos se muestran aqui*@
+    <BSContainer Class="caja">
+        @if (objeinsertado.Count()>0)
+    {
+                 
+                <BSTable IsResponsive="true" IsStriped="true" >
+                <BSTHead>
+                    <BSTR>
+                        <BSTD>Objetivo</BSTD>
+                    </BSTR>
+                </BSTHead>
+                <BSTBody>
+                  
+                    @foreach (var o in objeinsertado)
+                    {                 
+                        <BSTR>   
+                            <BSTD>@o.Odesc</BSTD>
+                        </BSTR>
+                    }
+                </BSTBody>
+
+            </BSTable>     
+                   <p></p>
+    }
+        <p></p>
+
+        @*Insertar objetivos uno a uno*@
+
+
+ 
+        @if (obload == false)
+        {
+            <BSForm Model="objeform" Class="caja" IsRow="true" Gutters="Gutters.Medium" OnSubmit="InsertOb">
                 <DataAnnotationsValidator />
-                <BSCol ColumnMedium="12">
-                 @_message
-                <BSValidationSummary />
-                    </BSCol>
-                        <BSRow>
-  
-                        <BSCol Column="4">
-                    <BSLabel>Nombre de la Idea</BSLabel>
-                            <BSInput InputType="InputType.Text" @bind-Value="objeform.Odesc"  />
-                                     <BSFeedback For="@(() => objeform.Odesc)" ValidMessage="Correcto." />
-                        </BSCol>
-                    </BSRow> 
-                   <BSCol Column="12">
-               <BSButton   Color="BSColor.Success"  Size="Size.ExtraSmall" IsSubmit>  Guardar <span class="oi oi-check"></span></BSButton>
-               <BSButton   Color="BSColor.Primary"  Size="Size.ExtraSmall" IsReset>  Nuevo </BSButton>
-                </BSCol>
-           </BSForm>
+            <BSCol ColumnMedium="12">
+                @_message
+            <BSValidationSummary />
+            </BSCol>
+                <BSRow>
+                           <BSCol Column="6">
+                            <BSLabel>Describa un Objetivo de la Idea:</BSLabel>
+                                        <BSInput InputType="InputType.TextArea" @bind-Value="objeform.Odesc"   />
+                                       
+                            </BSCol>
+               </BSRow>
+               <p></p>
 
-                </Content>
-            </BSAccordionItem>
-            <BSAccordionItem>
-                <Header>Accordion Item #2</Header>
-                <Content>
-                 <strong>This is the second item's accordion body.</strong> It is hidden by default. Placeholder content for this accordion.
-                </Content>
-            </BSAccordionItem>
-            <BSAccordionItem>
-                <Header>Accordion Item #3</Header>
-                <Content>
-                <strong>This is the third item's accordion body.</strong> It is hidden by default. Placeholder content for this accordion.
-            </Content>
-             </BSAccordionItem>
-        </BSAccordion>
+
+            <BSCol Column="6">
+           <BSButton   Color="BSColor.Success"  Size="Size.ExtraSmall" IsSubmit>  Guardar <span class="oi oi-check"></span></BSButton>
+           <BSButton   Color="BSColor.Primary"  Size="Size.ExtraSmall" OnClick="FinObj">  Finalizar </BSButton>
+            </BSCol>
+       </BSForm>
+       }
+        else if (obload == true & responsables == false)
+       {
+                    <BSRow Justify="Justify.Center">
+                        <BSCol Column="3">
+                          <div class="loader"></div>
+                        </BSCol>  
+                     </BSRow>
+       }
+       </BSContainer>
 
 }
         else
@@ -172,17 +194,114 @@ else if (ideainsertada.IdIdea !=0)
           
        }
 
+       @*Responsblases*@
+       
+        @if (obload == true & responsables==true)
+{
+       
+            @if (respoinsertado.Count() > 0)
+            {
+                       
+                              
+                 <BSContainer Class="caja">
+                               <p>Responsables</p>
+                        <BSTable IsResponsive="true" IsStriped="true" >
+                        <BSTHead>
+                            <BSTR>
+                                <BSTD>#</BSTD>
+                                <BSTD>Ficha</BSTD>
+                                <BSTD>Nombre</BSTD>
+                            </BSTR>
+                        </BSTHead>
+                        <BSTBody>
+
+                @foreach (var o in respoinsertado)
+                {                 
+                                    <BSTR>   
+                                        <BSTD>@o.Rnum</BSTD>
+                                        <BSTD>@o.Rficha</BSTD>
+                                        <BSTD>@o.Rnombre</BSTD>
+                                    </BSTR>
+                }
+                        </BSTBody>
+
+                    </BSTable>     
+                  </BSContainer>
+                }       
+            <p></p>
+                @if (inserres == true & responsables == false)
+                {
+                            <BSRow Justify="Justify.Center">
+                                <BSCol Column="3">
+                                  <div class="loader"></div>
+                                </BSCol>  
+                             </BSRow>
+                }
+                else if(end == true & responsables == false)
+                {
+                    <p></p>
+                }
+                else{
+                    <BSContainer Class="caja">
+                                <p>Agregue los responsables de la Idea:</p>
+                    <BSForm Model="respform" Class="caja" IsRow="true" Gutters="Gutters.Medium" OnSubmit="InsertRes">
+                    <DataAnnotationsValidator />
+                    <BSCol ColumnMedium="12">
+                        @_message
+                    <BSValidationSummary />
+                </BSCol>
+                <BSRow>
+                           <BSCol Column="2">
+                            <BSLabel>#</BSLabel>
+                             <BSInput InputType="InputType.Text" @bind-Value="respform.Rnum"  />
+                                    <BSFeedback For="@(() => respform.Rnum)" ValidMessage="Correcto." />
+                            </BSCol>
+                                <BSCol Column="3">
+                                <BSLabel>Ficha:</BSLabel>
+                                <BSInput InputType="InputType.Text" @bind-Value="respform.Rficha"  />
+                                <BSFeedback For="@(() => respform.Rficha)" ValidMessage="Correcto." />
+                            </BSCol>
+                            <BSCol Column="6">
+                                <BSLabel>Nombre:</BSLabel>
+                                <BSInput InputType="InputType.Text" @bind-Value="respform.Rnombre"  />
+                                <BSFeedback For="@(() => respform.Rnombre)" ValidMessage="Correcto." />
+                            </BSCol>
+                </BSRow>
+                <p></p>
+
+
+                        <BSCol Column="6">
+                    <BSButton   Color="BSColor.Success"  Size="Size.ExtraSmall" IsSubmit>  Guardar <span class="oi oi-check"></span></BSButton>
+                    <BSButton   Color="BSColor.Primary"  Size="Size.ExtraSmall" OnClick="End">  Terminar Proceso </BSButton>
+                    </BSCol>
+                    </BSForm>  
+                    
+       
+       
+       </BSContainer>
+  
+       }
+        
+  
+
+}
+     
 
 @code {
     Idea ideaform = new Idea();
     Objetivo objeform = new Objetivo();
+    Respon respform = new Respon();
+    List<Objetivo> objeinsertado = new List<Objetivo>();
+    List<Respon> respoinsertado = new List<Respon>();
+
     Idea ideainsertada = new Idea();//recibe el id de la idea insertada para cargar lois responsables y obteivos
     private string _message = "";
     private DateTime fechahoy, fechatrabajo=DateTime.Today;
     private string fechahoy2;
-    private bool add=false;
-    private bool agregando=false;//mostrar spinner
+    private bool add=false, end=false; //agregar idea y terminar proceso
+    private bool agregando=false,obload=false;//mostrar spinner
     private bool objetivos=false;//mostrar objetivos
+    private bool responsables = false, inserres = false;//mostrar responsables
 
 
     protected async Task Insert(EditContext e)
@@ -229,5 +348,50 @@ else if (ideainsertada.IdIdea !=0)
     {
         ideaform = new Idea();
         fechatrabajo = DateTime.Today;
+    }
+
+    //Objetivos
+   
+ protected async Task InsertOb(EditContext e)
+    {
+        //Insertar Estatus
+        obload = true;
+        objeform.IidIdea = ideainsertada.IdIdea;
+        objeform.Oesta=true;
+        objeinsertado = await IdeaService.InsertObjetivo(objeform, ideainsertada.IdIdea);  
+        obload = false;
+        objeform = new Objetivo();
+
+    }
+    protected async Task FinObj()
+    {
+        obload = true;
+        responsables = true;
+    }
+    //responsables
+    protected async Task InsertRes(EditContext e)
+    {
+        //Insertar Estatus
+        inserres = true;
+        respform.IidIdea = ideainsertada.IdIdea;
+        respform.Resta = true;
+        respoinsertado = await IdeaService.InsertResponsable(respform, ideainsertada.IdIdea);
+        inserres = false;
+        respform = new Respon();
+
+    }
+    protected async Task End()
+    {
+        ideaform = new Idea();
+        objeform = new Objetivo();
+        respform = new Respon();
+        ideainsertada = new Idea();
+        objeinsertado = new List<Objetivo>();
+        respoinsertado = new List<Respon>();
+        add = false; end = false;
+        agregando = false; obload = false;
+        objetivos = false;
+        responsables = false;
+        inserres = false;
     }
 }

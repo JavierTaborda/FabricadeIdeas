@@ -1,4 +1,5 @@
 ﻿using FabricaIdeas.Models;
+using System.Collections.Generic;
 
 namespace FabricaIdeas.Data
 {
@@ -15,10 +16,12 @@ namespace FabricaIdeas.Data
         //Ideassssssssss
         Task GetIdeas();
         Task<Idea> GetIdeaData(int id);
+        Task<List<Objetivo>> GetObjData(int id);
+        Task<List<Respon>> GetResData(int id);
         Task<Idea> InsertIdea(Idea idea);
         Task<Idea>UpdateIdea(int id);      
-        Task InsertObjetivo( Objetivo objetivos);
-        Task InsertResponsables(Respon ididea);
+        Task<List<Objetivo>>InsertObjetivo( Objetivo objetivos,int ididea);
+        Task<List<Respon>>InsertResponsable(Respon res, int ididea);
 
 
 

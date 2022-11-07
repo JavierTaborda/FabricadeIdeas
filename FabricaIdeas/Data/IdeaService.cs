@@ -1,4 +1,5 @@
 ﻿using FabricaIdeas.Models;
+using FabricaIdeas.Pages;
 using Microsoft.AspNetCore.Components;
 using Microsoft.EntityFrameworkCore;
 
@@ -45,11 +46,34 @@ namespace FabricaIdeas.Data
             return idea;
         }
 
-        public async Task InsertObjetivo(Objetivo obj)
+        public async Task<List<Objetivo>> InsertObjetivo(Objetivo obj,int ididea)
         {
 
             _context.Objetivos.Add(obj);
             await _context.SaveChangesAsync();
+            return await GetObjData(ididea);
+        }
+        public async Task<List<Objetivo>> GetObjData(int id)
+        {
+             objetivos = await _context.Objetivos
+                .Where(i=>i.IidIdea==id)
+                .ToListAsync();
+            return objetivos;
+        }  
+        
+        public async Task<List<Respon>> InsertResponsable(Respon res,int ididea)
+        {
+
+            _context.Respons.Add(res);
+            await _context.SaveChangesAsync();
+            return await GetResData(ididea);
+        }
+        public async Task<List<Respon>> GetResData(int id)
+        {
+             responsables = await _context.Respons
+                .Where(i=>i.IidIdea==id)
+                .ToListAsync();
+            return responsables;
         }
 
         public async Task InsertResponsables(Respon res)

@@ -47,10 +47,10 @@ h1 {
     -webkit-backdrop-filter: blur( 1.5 px );
     border-radius: 25px;
     border: 1px solid rgba( 255, 255, 255, 0.45 );
-    padding-left: 5%;
-    padding-right: 5%;
-    padding-top: 5%;
-    padding-bottom: 5%;
+    padding-left: 2%;
+    padding-right: 2%;
+    padding-top: 3%;
+    padding-bottom: 3%;
 }
 
 .sidebar {
@@ -85,7 +85,7 @@ h1 {
         content: '';
         width: 48px;
         height: 5px;
-        background: #fff;
+        background: #00A23B;
         position: absolute;
         top: 60px;
         left: 0;
@@ -97,7 +97,7 @@ h1 {
         content: '';
         width: 100%;
         height: 100%;
-        background: azure;
+        background: #79B943;
         position: absolute;
         top: 0;
         left: 0;
