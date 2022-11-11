@@ -14,7 +14,7 @@ namespace FabricaIdeas.Data
         List<Categorium> categorias { get; set; }
          List<Premiacion> premio { get; set; }
         //Ideassssssssss
-        Task GetIdeas();
+        Task GetIdeas(int Area, DateTime f1, DateTime f2);
         Task<Idea> GetIdeaData(int id);
         Task<List<Objetivo>> GetObjData(int id);
         Task<List<Respon>> GetResData(int id);

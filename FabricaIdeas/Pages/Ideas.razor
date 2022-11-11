@@ -103,6 +103,7 @@ else if (ideainsertada.IdIdea !=0)
                 <BSTD>Nombre</BSTD>
                 <BSTD>Descripcion del Problema</BSTD>
                 <BSTD>Descripcion de la Solucion</BSTD>
+                <BSTD>Codigo</BSTD>
             </BSTR>
         </BSTHead>
         <BSTBody>
@@ -110,6 +111,7 @@ else if (ideainsertada.IdIdea !=0)
                     <BSTD>@ideainsertada.Inombre</BSTD>
                     <BSTD>@ideainsertada.Idesc </BSTD>
                     <BSTD>@ideainsertada.Isolu </BSTD>
+                    <BSTD>@iicodigo+ideainsertada.IdIdea.ToString() </BSTD>
             </BSTR>
         </BSTBody>
 
@@ -187,7 +189,7 @@ else if (ideainsertada.IdIdea !=0)
 
             <BSRow Justify="Justify.Center">
             <BSCol  ColumnSmall="3">
-                    <BSButton   Color="BSColor.Light"  Size="Size.Large" IsOutlined OnClick="Add"> Click para registrar tu idea </BSButton>
+                    <BSButton   Color="BSColor.Success"  Size="Size.Large" IsOutlined OnClick="Add"> Click para registrar tu idea </BSButton>
             </BSCol>
            
         </BSRow>
@@ -202,7 +204,7 @@ else if (ideainsertada.IdIdea !=0)
             @if (respoinsertado.Count() > 0)
             {
                        
-                              
+                                <p></p>      
                  <BSContainer Class="caja">
                                <p>Responsables</p>
                         <BSTable IsResponsive="true" IsStriped="true" >
@@ -302,7 +304,7 @@ else if (ideainsertada.IdIdea !=0)
     private bool agregando=false,obload=false;//mostrar spinner
     private bool objetivos=false;//mostrar objetivos
     private bool responsables = false, inserres = false;//mostrar responsables
-
+    private string iicodigo = "I-";
 
     protected async Task Insert(EditContext e)
     {

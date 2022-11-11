@@ -42,11 +42,12 @@
         line-height: 3rem;
     }
 
-.nav-item ::deep a.active {
-    background-image: linear-gradient(to right, #00A23B, #3CAD49, #79B943);
-    color: white;
-    border-radius:20px;
-}
+        .nav-item ::deep a.active {
+            background: rgb(255, 255, 255, 0.40);
+            /*background-image: linear-gradient(to right, #00A23B, #3CAD49, #79B943);*/
+            color: white;
+            border-radius: 20px;
+        }
 
         .nav-item ::deep a:hover {
             background-color: rgb(70, 195, 30, 0.87);

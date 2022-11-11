@@ -1,0 +1,119 @@
+﻿@page "/listaideas"
+@inject IIdeasService IdeaService
+<h3>Consultar</h3>
+
+@try{
+    @if (IdeaService.areas is not null)
+    {
+<BSCol Column="4" >
+                Area
+                <BSInput InputType="InputType.Select" @bind-Value="idArea">
+                      <option value="">Seleccione...</option>
+        @foreach (var d in IdeaService.areas)
+        {
+
+                        <option value="@d.IdArea">@d.Anombre</option>
+        }
+
+
+            </BSInput> 
+            
+        </BSCol>
+          <BSCol Column="3" >
+                     <BSButton   Color="BSColor.Success"  Size="Size.ExtraSmall" @onclick="TraerIdeas">  Buscar <span class="oi oi-check"></span></BSButton>
+            </BSCol>
+    }           }
+catch
+{
+                 <p>ocurrio un error, recargue la pagina.</p>
+}
+
+ <p></p>
+
+@if (IdeaService.ideas is not null)
+{
+
+    <BSContainer Class="">
+        <BSTable IsResponsive="true" IsStriped="true" >
+            <BSTHead>
+                <BSTR>
+                    <BSTD>Codigo</BSTD>
+                    <BSTD>Nombre</BSTD>
+                    <BSTD>Descripcion del Problema</BSTD>
+                    <BSTD>Descripcion de la Solucion</BSTD>
+                    <BSTD>Factibilidad</BSTD>
+                    <BSTD>Criticidad</BSTD>
+                    <BSTD>Area</BSTD>
+                    <BSTD>Zona</BSTD>
+                    <BSTD>Objetivos</BSTD>
+                    <BSTD>Responsables</BSTD>
+                   
+
+                </BSTR>
+            </BSTHead>
+            <BSTBody>
+                @foreach (var i in IdeaService.ideas)
+                {
+                    <BSTR>   
+                        <BSTD>@iicodigo@i.IdIdea.ToString()
+                        </BSTD>
+                        <BSTD>@i.Inombre</BSTD>
+                        <BSTD>@i.Idesc </BSTD>
+                        <BSTD>@i.Isolu </BSTD>
+                        <BSTD>@i.Ifacti </BSTD>
+                        <BSTD>
+                            @if(i.IfecEst is null)
+                            {
+                                <BSButton   Color="BSColor.Warning"  Size="Size.ExtraSmall"> <span class="oi oi-check"></span></BSButton>
+                            }
+                            else
+                            {
+                                @i.IfecEst
+                            }
+
+                        </BSTD>
+                        <BSTD>@i.AidAreaNavigation.Anombre </BSTD>
+                        <BSTD>@i.ZidZonaNavigation.Znombre </BSTD>
+                        <BSTD>
+                            <BSButton   Color="BSColor.Success"  Size="Size.ExtraSmall"> <span class="oi oi-check"></span></BSButton>
+                        </BSTD>
+                          <BSTD>
+                              <BSButton   Color="BSColor.Primary"  Size="Size.ExtraSmall"> <span class="oi oi-check"></span></BSButton>
+                          </BSTD>
+                    </BSTR>
+                }
+            </BSTBody>
+
+    </BSTable>     
+    </BSContainer>
+    }      
+        <p></p>
+
+@code {
+
+    Objetivo objeform = new Objetivo();
+    Respon respform = new Respon();
+    List<Idea> idea = new List<Idea>();
+    List<Objetivo> objeinsertado = new List<Objetivo>();
+    List<Respon> respoinsertado = new List<Respon>();
+    private string iicodigo = "I-";//codigo generico para id de la idea
+    private int idArea;
+    private DateTime f1 = DateTime.Now, f2 = DateTime.Now;
+
+    protected async Task TraerIdeas()
+    {
+        await IdeaService.GetIdeas(idArea,f1,f2);
+        
+    }
+    protected override async Task OnInitializedAsync()
+    {
+
+        await  IdeaService.GetArea();
+    }
+    //protected override async Task OnParametersSetAsync()
+    //{
+     
+
+    //}
+
+}

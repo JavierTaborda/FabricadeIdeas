@@ -25,9 +25,13 @@ namespace FabricaIdeas.Data
             _context = _dbFabriIdeasContext;
         }
 
-        public async Task GetIdeas()
+        public async Task GetIdeas(int Area, DateTime f1, DateTime f2)
         {
-            ideas = await _context.Ideas.ToListAsync();
+            ideas = await _context.Ideas
+                .Where(a=>a.AidArea==Area & a.IfecCra>= f1 & a.IfecCra <= f2)
+                .Include(a=>a.AidAreaNavigation)
+                .Include(a=>a.ZidZonaNavigation)
+                .ToListAsync();
         }
 
         public async Task<Idea> InsertIdea(Idea idea)
