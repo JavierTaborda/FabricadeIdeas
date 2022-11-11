@@ -5,7 +5,9 @@
 @try{
     @if (IdeaService.areas is not null)
     {
-<BSCol Column="4" >
+        <BSContainer>
+            <BSRow>
+        <BSCol Column="4" >
                 Area
                 <BSInput InputType="InputType.Select" @bind-Value="idArea">
                       <option value="">Seleccione...</option>
@@ -17,11 +19,24 @@
 
 
             </BSInput> 
-            
-        </BSCol>
-          <BSCol Column="3" >
+             </BSCol>
+     
+       
+             
+          <BSCol Column="2" >
+             Desde Fecha de Carga
+              <BSInput InputType="InputType.Date" @bind-Value="f1"/>
+            </BSCol>
+               <BSCol Column="2" >
+                Hasta Fecha de Carga
+              <BSInput InputType="InputType.Date" @bind-Value="f2"/>
+            </BSCol>
+               <BSCol Column="3" >
+                   <p></p>
                      <BSButton   Color="BSColor.Success"  Size="Size.ExtraSmall" @onclick="TraerIdeas">  Buscar <span class="oi oi-check"></span></BSButton>
             </BSCol>
+              </BSRow>
+        </BSContainer>
     }           }
 catch
 {
@@ -37,18 +52,17 @@ catch
         <BSTable IsResponsive="true" IsStriped="true" >
             <BSTHead>
                 <BSTR>
-                    <BSTD>Codigo</BSTD>
+                    <BSTD>Código</BSTD>
                     <BSTD>Nombre</BSTD>
-                    <BSTD>Descripcion del Problema</BSTD>
-                    <BSTD>Descripcion de la Solucion</BSTD>
+                    <BSTD>Descripción del Problema</BSTD>
+                    <BSTD>Descripción de la Solución</BSTD>
                     <BSTD>Factibilidad</BSTD>
-                    <BSTD>Criticidad</BSTD>
                     <BSTD>Area</BSTD>
                     <BSTD>Zona</BSTD>
+                    <BSTD>Criticidad</BSTD>
                     <BSTD>Objetivos</BSTD>
                     <BSTD>Responsables</BSTD>
-                   
-
+                    <BSTD>Estado</BSTD>
                 </BSTR>
             </BSTHead>
             <BSTBody>
@@ -61,6 +75,8 @@ catch
                         <BSTD>@i.Idesc </BSTD>
                         <BSTD>@i.Isolu </BSTD>
                         <BSTD>@i.Ifacti </BSTD>
+                        <BSTD>@i.AidAreaNavigation.Anombre </BSTD>
+                        <BSTD>@i.ZidZonaNavigation.Znombre </BSTD>
                         <BSTD>
                             @if(i.IfecEst is null)
                             {
@@ -72,14 +88,13 @@ catch
                             }
 
                         </BSTD>
-                        <BSTD>@i.AidAreaNavigation.Anombre </BSTD>
-                        <BSTD>@i.ZidZonaNavigation.Znombre </BSTD>
                         <BSTD>
                             <BSButton   Color="BSColor.Success"  Size="Size.ExtraSmall"> <span class="oi oi-check"></span></BSButton>
                         </BSTD>
                           <BSTD>
                               <BSButton   Color="BSColor.Primary"  Size="Size.ExtraSmall"> <span class="oi oi-check"></span></BSButton>
                           </BSTD>
+                            <BSTD>@i.EidEstaNavigation.Edesc </BSTD>
                     </BSTR>
                 }
             </BSTBody>

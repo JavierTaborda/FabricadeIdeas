@@ -31,6 +31,7 @@ namespace FabricaIdeas.Data
                 .Where(a=>a.AidArea==Area & a.IfecCra>= f1 & a.IfecCra <= f2)
                 .Include(a=>a.AidAreaNavigation)
                 .Include(a=>a.ZidZonaNavigation)
+                .Include(a=>a.EidEstaNavigation)
                 .ToListAsync();
         }
 
